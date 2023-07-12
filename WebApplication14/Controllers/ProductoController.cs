@@ -6,68 +6,32 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Xml.Linq;
 using WebApplication14.Models;
+using WebApplication14.Repository;
 
 namespace WebApplication14.Controllers
 {
     public class ProductoController : ApiController
     {
-        [HttpPost(Name = "CrearProducto")]
-        public bool CrearProducto([FromBody] PostProducto producto)
+        //Crear Producto
+        [HttpPost]
+        public void Crear ([FromBody] Producto producto)
         {
-            try
-            {
-                return ProductoHandler.CrearProducto(
-                    new Producto
-                    {
-                        Descripciones = producto.Descripciones,
-                        Costo = producto.Costo,
-                        PrecioVenta = producto.PrecioVenta,
-                        Stock = producto.Stock,
-                        IdUsuario = producto.IdUsuario
-                    }
-                );
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            ProductoHandler.CrearProducto(producto);
         }
 
-        [HttpPut(Name = "ModificarProducto")]
+        //Modificar Producto
+        [HttpPut]
 
-        public bool ModificarProducto([FromBody] PutProducto producto)
+        public void Modificar ([FromBody] Producto producto)
         {
-            try
-            {
-                return ProductoHandler.ModificarProducto(
-                    new Producto
-                    {
-                        Id = producto.Id,
-                        Descripciones = producto.Descripciones,
-                        Costo = producto.Costo,
-                        PrecioVenta = producto.PrecioVenta,
-                        Stock = producto.Stock,
-                        IdUsuario = producto.IdUsuario
-                    }
-                );
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            ProductoHandler.ModificarProducto(producto);
         }
 
-        public bool EliminarProducto([FromBody] long idProducto)
+        //Eliminar Producto
+        [HttpDelete]
+        public void Eliminar ([FromBody] int IdProducto)
         {
-            try
-            {
-                ProductoVendidoHandler.EliminarProductoVendido(idProducto); // Puede que se quiera eliminar un producto que no fue vendido aún, por ello no se válida.
-                return ProductoHandler.EliminarProducto(idProducto);
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            ProductoHandler.EliminarProducto(IdProducto);
         }
     }
 }

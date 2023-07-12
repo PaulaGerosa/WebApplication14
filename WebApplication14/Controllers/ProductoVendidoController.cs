@@ -11,10 +11,12 @@ namespace WebApplication14.Controllers
 {
     public class ProductoVendidoController : ApiController
     {
-        [HttpGet(Name = "TraerProductosVendidos")]
-        public List<ProductoVendido> TraerProductosVendidos_conIdUsuario(long idUsuario)
+        //Obtener Productos Vendidos
+        [HttpGet]
+        public List<ProductoVendido> Consultar()
         {
-            return ProductoVendidoHandler.TraerProductosVendidos_conIdUsuario(idUsuario);
+            return new List<ProductoVendido>();
         }
+        
     }
 }
